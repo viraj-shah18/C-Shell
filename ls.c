@@ -11,6 +11,32 @@
 // isdir
 // print
 
+void read_input();
+void ps(char* argv[]);
+void ls_print(int argc, char *argv[]);
+void read_dir(int argc, char *argv[]);
+
+int main(){
+    printf("%s>", SHELL_NAME);
+    // char argv[];
+    
+    // ps();
+    return 0;
+}
+
+
+void read_input(){
+    char *buffer;
+    size_t bufsize = 128;
+    size_t input_size;
+
+
+    buffer=(char *)malloc(bufsize*sizeof(char));
+    input_size = getline(&buffer, &bufsize,stdin);
+    
+
+}
+
 void ps(char* argv[]){
     int rc=fork();
     if (rc<0){
@@ -25,19 +51,4 @@ void ps(char* argv[]){
         int wc = wait(NULL);
         printf("ps ran successfully");
     }
-}
-
-
-void ls_print(int argc, char *argv[]){
-    printf("In ls_print");
-}
-
-void read_dir(int argc, char *argv[]){
-    printf("TODO");
-}
-
-int main(){
-    // char *name[]=SHELL_NAME;
-    printf("%s>", SHELL_NAME);
-    return 0;
 }
