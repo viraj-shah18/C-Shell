@@ -11,7 +11,8 @@
 
 
 // function declarations
-void cmd_pwd();
+int read_input(char *input_str, char *parsed_input[]);
+int cmd_pwd();
 
 //for comparing with the input command with defined commands
 char *list_of_cmd[] = {"pwd"};
@@ -48,36 +49,9 @@ int main(){
                     cmd_fn_pointer[a](input_array);
                 }
             }
-
-
         }
         else{
             wait(NULL);
         }
     }
 }
-
-
-// int read_input(char *input_str, char *parsed_input[]){
-//     /*
-//     This function reads input and splits them on spaces using strtok function
-//     and returns the length of array created 
-//     */
-//     const char delim[]=" ";
-//     char *token;
-
-//     fgets(input_str, MAX_LEN_CMD, stdin);
-//     strtok(input_str, "\n");    // this is to remove the last "\n" character from the input
-
-//     // tokenising the input using " " as delimiter
-//     token = strtok(input_str, delim);
-//     int input_size=0;
-
-//     while (token!=NULL){
-//         parsed_input[input_size]=token;
-//         token=strtok(NULL, delim);
-//         input_size++;
-//     }
-
-//     return input_size;
-// }

@@ -18,7 +18,10 @@ int read_input(char *input_str, char *parsed_input[]){
     const char delim[]=" ";
     char *token;
 
-    fgets(input_str, MAX_LEN_CMD, stdin);
+    if (fgets(input_str, MAX_LEN_CMD, stdin)==NULL){
+        printf("Error taking input");
+        exit(EXIT_FAILURE);
+    };
     strtok(input_str, "\n");    // this is to remove the last "\n" character from the input
 
     // tokenising the input using " " as delimiter
