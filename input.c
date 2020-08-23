@@ -10,13 +10,14 @@
 #define MAX_LEN_CMD 128
 
 
-int read_input(char *input_str, char *parsed_input[]){
+int read_input(char *parsed_input[]){
     /*
     This function reads input and splits them on spaces using strtok function
     and returns the length of array created 
     */
     const char delim[]=" ";
     char *token;
+    char input_str[MAX_LEN_CMD];
 
     if (fgets(input_str, MAX_LEN_CMD, stdin)==NULL){
         printf("Error taking input");

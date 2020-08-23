@@ -1,8 +1,11 @@
 pp - os_shell
 
 Errors in built-in binaries
+1. cd command not present
+
+Other known Errors
 1. Arrow keys do not work
-2. cd command not present
+2. \ in the end has different action for inbuilt cmd and implemented cmd
 
 ### TO-DOs
 - [x] Run built-in [2 marks]
@@ -11,11 +14,11 @@ Errors in built-in binaries
 - [ ] cat (requirements are same as those for wcat given here: Link) [1 mark]
 - [ ] Mv [0.5 marks]
 - [ ] Cp [1 mark]
-- [ ] Cd [1 mark]
+- [x] Cd [1 mark]
 - [x] Pwd [0.5 marks]
 - [ ] rm (along with -r option) [1 mark]
 - [ ] Chmod [0.5 mark]
 - [x] Mkdir [0.5 mark]
 - [ ] Run in background [2 marks]
 
-Total score = 3.5
+Total score = 4.5

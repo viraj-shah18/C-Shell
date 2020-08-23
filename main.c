@@ -11,20 +11,21 @@
 
 
 // function declarations
-int read_input(char *input_str, char *parsed_input[]);
+int read_input(char *parsed_input[]);
 int cmd_pwd(char *argv[]);
 int cmd_ls(char *argv[]);
 int cmd_mkdir(char *argv[]);
 
-void cmd_exit(char *argv[]);
+int cmd_exit(char *argv[]);
+int cmd_cd(char *argv[]);
 
 //for comparing with the input command with defined commands
 char *list_of_cmd[] = {"ls", "pwd", "mkdir"};
-char *list_of_parent[]={"exit"};
+char *list_of_parent[]={"exit", "cd"};
 
 //using pointer to function to run the command entered
 int (*cmd_fn_pointer[]) (char **)={&cmd_ls, &cmd_pwd, &cmd_mkdir};
-int (*parent_fn_pointer[]) (char **)={&cmd_exit};
+int (*parent_fn_pointer[]) (char **)={&cmd_exit, &cmd_cd};
 
 int total_cmds = sizeof(list_of_cmd)/sizeof(list_of_cmd[0]);
 int total_parent_cmds = sizeof(list_of_parent)/sizeof(list_of_parent[0]);
@@ -33,10 +34,9 @@ int main(){
     while (1){
         printf("%s> ", SHELL_NAME);
         int input_size;
-        char *input_str[MAX_LEN_CMD];
         char *parsed_input[MAX_LEN_CMD];
 
-        input_size = read_input(&input_str, parsed_input);
+        input_size = read_input(parsed_input);
 
         // this is to slice the array to required input length and adding NULL as last element
         char *input_array[input_size+1];
@@ -70,11 +70,10 @@ int main(){
         }
         else{
             wait(NULL);
-            // exit(EXIT_SUCCESS);
         }
     }
 }
 
-void cmd_exit(char *argv[]){
+int cmd_exit(char *argv[]){
     exit(EXIT_SUCCESS);
 }

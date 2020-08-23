@@ -8,11 +8,11 @@ int cmd_mkdir(char *argv[]){
     printf("Hello this new mkdir command\n");
     char *create_dir_names[32];
     
-    
+    // for taking multiple dir names to create multiple directories
     int i=1;
     if (argv[1]==NULL){
         printf("Argument missing\n");
-        exit(EXIT_SUCCESS);
+        exit(EXIT_FAILURE);
     }
     else{
         while (argv[i]!=NULL){
@@ -24,6 +24,7 @@ int cmd_mkdir(char *argv[]){
 
     int idx=0;
     while (create_dir_names[idx]!=NULL){
+        // used the default mode of 0777 to create new dir
         int rc=mkdir(create_dir_names[idx], 0777);
         if (rc<0){
             printf("Creating new directory failed\n");
