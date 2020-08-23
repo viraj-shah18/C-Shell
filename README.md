@@ -6,7 +6,7 @@ Errors in built-in binaries
 
 ### TO-DOs
 - [x] Run built-in [2 marks]
-- [ ] ls (Argument is either directory name or no argument at all) [0.5 marks] 
+- [x] ls (Argument is either directory name or no argument at all) [0.5 marks] 
 - [ ] grep (requirements are same as those for wgrep given here: Link) [2 mark]
 - [ ] cat (requirements are same as those for wcat given here: Link) [1 mark]
 - [ ] Mv [0.5 marks]
@@ -18,4 +18,4 @@ Errors in built-in binaries
 - [ ] Mkdir [0.5 mark]
 - [ ] Run in background [2 marks]
 
-Total score = 2.5
+Total score = 3

@@ -1,7 +1,7 @@
 # hw: hw.o helper.o
 # 	gcc -o hw hw.o helper.o -lm
-ls: ls.c
-	gcc -O -Wall -c ls.c -o ls
+# ls: ls.c
+# 	gcc -O -Wall -c ls.c -o ls
 # helper.o: helper.c
 # 	gcc -O -Wall -c helper.c
 # clean:
@@ -9,7 +9,7 @@ ls: ls.c
 
 
 # specify all source files here
-SRCS = main.c input.c pwd.c
+SRCS = main.c input.c cmds/pwd.c cmds/ls.c
 # specify target here (name of executable)
 TARG = main
 # specify compiler, compile flags, and needed libs

@@ -7,10 +7,8 @@
 #include <sys/types.h>
 
 int main(){
-    char *myargs[3];
-    myargs[0]="ls";
-    myargs[1]="-a";
-    myargs[2]=NULL;
-    execvp(myargs[0], myargs);
+    char *a[]={"pwd", "ls", "y", "po", "ted"};
+    int si = sizeof(a)/sizeof(a[0]);
+    printf("%d", si);
     return 0;
 }

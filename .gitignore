@@ -1,2 +1,5 @@
-1
 test
+test.c
+build
+*.o
+main
