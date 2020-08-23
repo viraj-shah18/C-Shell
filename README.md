@@ -17,8 +17,8 @@ Other known Errors
 - [x] Cd [1 mark]
 - [x] Pwd [0.5 marks]
 - [ ] rm (along with -r option) [1 mark]
-- [ ] Chmod [0.5 mark]
+- [x] Chmod [0.5 mark]
 - [x] Mkdir [0.5 mark]
 - [ ] Run in background [2 marks]
 
-Total score = 4.5
+Total score = 5
