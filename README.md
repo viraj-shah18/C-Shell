@@ -10,8 +10,8 @@ Other known Errors
 ### TO-DOs
 - [x] Run built-in [2 marks]
 - [x] ls (Argument is either directory name or no argument at all) [0.5 marks] 
-- [ ] grep (requirements are same as those for wgrep given here: Link) [2 mark]
-- [ ] cat (requirements are same as those for wcat given here: Link) [1 mark]
+- [ ] grep (requirements are same as those for wgrep given here: [Link](https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/initial-utilities)) [2 mark]
+- [x] cat (need to improve this-read buffersize at one go) [1 mark]
 - [ ] Mv [0.5 marks]
 - [ ] Cp [1 mark]
 - [x] Cd [1 mark]
@@ -21,4 +21,4 @@ Other known Errors
 - [x] Mkdir [0.5 mark]
 - [ ] Run in background [2 marks]
 
-Total score = 5
+Total score = 6 (-0.5 for less efficiency in cat)

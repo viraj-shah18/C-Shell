@@ -3,4 +3,4 @@ test.c
 build
 *.o
 *.txt
-main
+shell
