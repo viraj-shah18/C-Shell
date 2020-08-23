@@ -9,7 +9,7 @@
 
 
 # specify all source files here
-SRCS = main.c input.c cmds/pwd.c cmds/ls.c
+SRCS = main.c input.c cmds/pwd.c cmds/ls.c cmds/mkdir.c
 # specify target here (name of executable)
 TARG = main
 # specify compiler, compile flags, and needed libs

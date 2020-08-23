@@ -15,7 +15,7 @@ Errors in built-in binaries
 - [x] Pwd [0.5 marks]
 - [ ] rm (along with -r option) [1 mark]
 - [ ] Chmod [0.5 mark]
-- [ ] Mkdir [0.5 mark]
+- [x] Mkdir [0.5 mark]
 - [ ] Run in background [2 marks]
 
-Total score = 3
+Total score = 3.5

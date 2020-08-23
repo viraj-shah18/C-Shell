@@ -14,15 +14,16 @@
 int read_input(char *input_str, char *parsed_input[]);
 int cmd_pwd(char *argv[]);
 int cmd_ls(char *argv[]);
+int cmd_mkdir(char *argv[]);
 
 void cmd_exit(char *argv[]);
 
 //for comparing with the input command with defined commands
-char *list_of_cmd[] = {"ls", "pwd"};
+char *list_of_cmd[] = {"ls", "pwd", "mkdir"};
 char *list_of_parent[]={"exit"};
 
 //using pointer to function to run the command entered
-int (*cmd_fn_pointer[]) (char **)={&cmd_ls, &cmd_pwd};
+int (*cmd_fn_pointer[]) (char **)={&cmd_ls, &cmd_pwd, &cmd_mkdir};
 int (*parent_fn_pointer[]) (char **)={&cmd_exit};
 
 int total_cmds = sizeof(list_of_cmd)/sizeof(list_of_cmd[0]);
