@@ -38,7 +38,7 @@ int delete_dir(char *dir_path){
             exit(EXIT_FAILURE);
         }
 
-        if (dir_name[0] == '.') {
+        if (strcmp(dir_name,".")==0 || strcmp(dir_name,"..")==0) {
             continue;
         }
 
