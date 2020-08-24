@@ -57,19 +57,10 @@ int delete_dir(char *dir_path){
 }
 
 int cmd_rm(char *argv[]){
-    int idx=1;
-    int is_dir=0;
-
-    if (argv[1]==NULL){
-        printf("rm:Argument missing\n");
-        exit(EXIT_FAILURE);
-    }
+    /*
+    One of the important point here is I am using only absolute paths
+    */
     
-    if (strcmp(argv[1], "-r")==0){
-        idx=2;
-        is_dir=1;
-    }
-
     struct stat file_info;
     char path[PATH_MAX];
 
@@ -78,20 +69,31 @@ int cmd_rm(char *argv[]){
         exit(EXIT_FAILURE);
     }
 
+    int idx=1;
     while(argv[idx]!=NULL){
-        char test_path[PATH_MAX];
+        int is_dir=0;
+        if (strcmp(argv[idx], "-r")==0){
+            idx++;
+            is_dir=1;
+        }
 
-        int rc=stat(argv[idx],&file_info);
+        if (argv[idx]==NULL){
+            printf("rm:Argument missing\n");
+            exit(EXIT_FAILURE);
+        }
+
+        char *name = argv[idx];
+        int rc=stat(name,&file_info);
         if (rc<0){
             printf("rm: stat failed\n");
             exit(EXIT_FAILURE);
         }
 
         if (S_ISDIR(file_info.st_mode) && is_dir){
-            strncpy(test_path, path, strlen(path));
+            char test_path[PATH_MAX];
+            strncpy(test_path, path, strlen(path)+1);
             strncat(test_path, "/", 1);
-            strncat(test_path, argv[idx], strlen(argv[idx]));
-            printf("%s\n", test_path);
+            strncat(test_path, name, strlen(name));
             delete_dir(test_path);
         }
 

@@ -12,7 +12,7 @@ int cmd_cat(char *argv[]){
         printf("No files specified\n");
         exit(EXIT_FAILURE);
     }
-    // to get current working directory for complete path
+    // to use relative path
     if (getcwd(path, PATH_MAX)==NULL){
         printf("path error\n");
         exit(EXIT_FAILURE);
@@ -21,10 +21,6 @@ int cmd_cat(char *argv[]){
     int idx=1;
     while (argv[idx]!=NULL){
         FILE *curr_file;
-        char full_path[PATH_MAX];
-        strncpy(full_path, path, strlen(path)-1);
-        strncat(full_path, "/",1);
-        strncat(full_path, argv[idx],strlen(argv[idx]));
         curr_file=fopen(argv[idx], "r");
         if (curr_file==NULL){
             printf("%d", errno);

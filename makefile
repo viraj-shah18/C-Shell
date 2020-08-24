@@ -1,6 +1,6 @@
 # This makefile was taken from the text-book.
 #  specify all source files here
-SRCS = main.c input.c cmds/pwd.c cmds/ls.c cmds/mkdir.c cmds/cd.c cmds/chmod.c cmds/cat.c
+SRCS = main.c input.c cmds/pwd.c cmds/ls.c cmds/mkdir.c cmds/cd.c cmds/chmod.c cmds/cat.c cmds/rm.c
 # specify target here (name of executable)
 TARG = shell
 # specify compiler, compile flags, and needed libs

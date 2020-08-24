@@ -16,9 +16,9 @@ Other known Errors
 - [ ] Cp [1 mark]
 - [x] Cd [1 mark]
 - [x] Pwd [0.5 marks]
-- [ ] rm (along with -r option) [1 mark]
+- [x] rm (along with -r option) [1 mark]
 - [x] Chmod [0.5 mark]
 - [x] Mkdir [0.5 mark]
 - [ ] Run in background [2 marks]
 
-Total score = 6 (-0.5 for less efficiency in cat)
+Total score = 7
