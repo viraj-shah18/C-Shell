@@ -12,22 +12,24 @@
 
 // function declarations
 int read_input(char *parsed_input[]);
+
 int cmd_pwd(char *argv[]);
 int cmd_ls(char *argv[]);
 int cmd_mkdir(char *argv[]);
 int cmd_chmod(char *argv[]);
 int cmd_cat(char *argv[]);
 int cmd_rm(char *argv[]);
+int cmd_mv(char *argv[]);
 
 int cmd_exit(char *argv[]);
 int cmd_cd(char *argv[]);
 
 //for comparing with the input command with defined commands
-char *list_of_cmd[] = {"ls", "pwd", "mkdir","chmod", "cat","rm"};
+char *list_of_cmd[] = {"ls", "pwd", "mkdir","chmod", "cat","rm", "mv"};
 char *list_of_parent[]={"exit", "cd"};
 
 //using pointer to function to run the command entered
-int (*cmd_fn_pointer[]) (char **)={&cmd_ls, &cmd_pwd, &cmd_mkdir,&cmd_chmod, &cmd_cat,&cmd_rm};
+int (*cmd_fn_pointer[]) (char **)={&cmd_ls, &cmd_pwd, &cmd_mkdir,&cmd_chmod, &cmd_cat,&cmd_rm, &cmd_mv};
 int (*parent_fn_pointer[]) (char **)={&cmd_exit, &cmd_cd};
 
 int total_cmds = sizeof(list_of_cmd)/sizeof(list_of_cmd[0]);

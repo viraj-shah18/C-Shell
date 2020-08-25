@@ -12,7 +12,7 @@ Other known Errors
 - [x] ls (Argument is either directory name or no argument at all) [0.5 marks] 
 - [ ] grep (requirements are same as those for wgrep given here: [Link](https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/initial-utilities)) [2 mark]
 - [x] cat (need to improve this-read buffersize at one go) [1 mark]
-- [ ] Mv [0.5 marks]
+- [x] Mv [0.5 marks]
 - [ ] Cp [1 mark]
 - [x] Cd [1 mark]
 - [x] Pwd [0.5 marks]
@@ -21,4 +21,4 @@ Other known Errors
 - [x] Mkdir [0.5 mark]
 - [ ] Run in background [2 marks]
 
-Total score = 7
+Total score = 7.5
