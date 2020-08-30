@@ -12,6 +12,7 @@
 
 // function declarations
 int read_input(char *parsed_input[]);
+int create_daemon();
 
 int cmd_pwd(char *argv[]);
 int cmd_ls(char *argv[]);
@@ -39,6 +40,8 @@ int main(){
     while (1){
         printf("%s> ", SHELL_NAME);
         int input_size;
+        int run_background=0;
+        int parent_cmd=0;
         char *parsed_input[MAX_LEN_CMD];
 
         input_size = read_input(parsed_input);
@@ -49,14 +52,23 @@ int main(){
             input_array[idx]=parsed_input[idx];
         }
         input_array[input_size]=NULL;
+
         //compare parent processes here
         for (int a=0;a<total_parent_cmds;a++){
             if (strcmp(input_array[0], list_of_parent[a])==0){
-                // printf("Parent cmd found\n");
+                printf("Parent cmd found\n");
+                parent_cmd=1;
                 (parent_fn_pointer[a])(input_array);
-                // exit(EXIT_SUCCESS);
             }
         }
+        if (parent_cmd){
+            continue;
+        }
+
+        if (strcmp("&", input_array[input_size-1])==0){
+            run_background=1;
+        }
+
         // printf("REached here");
         int rc=fork();
         if (rc<0){
@@ -65,16 +77,38 @@ int main(){
         }
         else if(rc==0){
             char *command=input_array[0];
+            int cmd_found=0;
+            if (run_background==1){
+                printf("%d\n", (int)getpid());
+                create_daemon();
+                // TODO: Write daemon function, use man 7 daemon
+                input_array[input_size-1] = NULL;
+            }
+            // printf("here");
             for (int a=0;a<total_cmds;a++){
                 if (strcmp(command, list_of_cmd[a])==0){
                     // printf("Cmd found\n");
+                    cmd_found=1;
                     (cmd_fn_pointer[a])(input_array);
+                }
+            }
+            if (!cmd_found){
+                printf("trying to use inbuilt binaries\n");
+                if (execvp(command, input_array)<0){
+                    printf("Command not known. Please enter valid command\nExec failed\n");
                 }
             }
             exit(EXIT_SUCCESS);
         }
         else{
-            wait(NULL);
+            if (run_background){
+                run_background=0;
+                continue;
+            }
+            else{
+                wait(NULL);
+            }
+            printf("teminal pid: %d\n", (int) getpid());
         }
     }
 }

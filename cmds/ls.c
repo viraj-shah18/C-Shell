@@ -30,7 +30,7 @@ int cmd_ls(char *argv[]){
     while(ls_dir[idx]!=NULL){
         int rc=stat(ls_dir[idx],&file_info);
         if (rc<0){
-            printf("ls command failed\n");
+            printf("ls:stat command failed\n");
             exit(EXIT_FAILURE);
         }
 
