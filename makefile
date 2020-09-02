@@ -21,3 +21,54 @@ $(TARG): $(OBJS)
 # and finally, a clean line
 clean:
 	rm -f $(OBJS) $(TARG)
+
+
+# PROG := Bin/${gitProjectName}
+# DEFINE = 
+# INCPATH = -ISource
+# CPPFLAGS += -Wall \$(INCPATH) \$(DEFINE)
+# CPPFLAGS += -O3
+# CPPFLAGS += -g
+# LFLAGS +=
+# CPP_SRCS = \$(wildcard *.cpp) \$(wildcard */*.cpp)
+# CPP_HDRS = \$(wildcard *.hpp) \$(wildcard */*.hpp)
+# CPP_DEPS = \$(CPP_SRCS:.cpp=.d)
+# CPP_OBJS = \$(CPP_SRCS:.cpp=.o)
+# OBJS :=  \$(CPP_OBJS)
+# all: \$(PROG)
+# \$(PROG): \$(OBJS)
+# 	 \$(CXX) \$(LFLAGS) \$^ -o \$@
+# %.o: %.cpp
+# 	\$(CXX) \$(CPPFLAGS) -MMD -c \$< -o \$@
+# clean:
+# 	rm -f \$(CPP_DEPS)
+# 	rm -f \$(OBJS)
+# 	rm -f \$(P
+
+# PROG := Bin/test
+# DEFINE = 
+# INCPATH = -ISource
+# CPPFLAGS += -Wall $(INCPATH) $(DEFINE)
+# CPPFLAGS += -O3
+# CPPFLAGS += -g
+# LFLAGS +=
+
+# CPP_SRCS = $(wildcard *.cpp) $(wildcard */*.cpp)
+# CPP_HDRS = $(wildcard *.hpp) $(wildcard */*.hpp)
+# CPP_DEPS = $(CPP_SRCS:.cpp=.d)
+# CPP_OBJS = $(CPP_SRCS:.cpp=.o)
+
+# OBJS :=  $(CPP_OBJS)
+
+# all: $(PROG)
+
+# $(PROG): $(OBJS)
+# 	 $(CXX) $(LFLAGS) $^ -o $@
+
+# %.o: %.cpp
+# 	$(CXX) $(CPPFLAGS) -MMD -c $< -o $@
+
+# clean:
+# 	rm -f $(CPP_DEPS)
+# 	rm -f $(OBJS)
+# 	rm -f $(PROG)

@@ -22,6 +22,7 @@ int create_daemon(){
 
     // child
     printf("Parent id = %d\n\n", (int)getppid());
-    // chdir("/");
+    umask(0);
+    chdir("/");
     return 0;
 }
