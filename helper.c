@@ -63,12 +63,12 @@ int run_background(int input_size, char *input_array[]){
 int run_builtin(char *input_array[]){
     int builtin=1;
     printf("trying to use inbuilt binaries\n");
+    printf("%s\n", input_array[0]);
     if (execvp(input_array[0], input_array)<0){
         builtin=0;
         printf("Command not known. Please enter valid command\nExec failed\n");
     }
     return builtin;
-
 }
 
 
