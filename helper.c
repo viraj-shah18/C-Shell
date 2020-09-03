@@ -16,16 +16,17 @@ int cmd_chmod(char *argv[]);
 int cmd_cat(char *argv[]);
 int cmd_rm(char *argv[]);
 int cmd_mv(char *argv[]);
+int cmd_grep(char *argv[]);
 
 int cmd_exit(char *argv[]);
 int cmd_cd(char *argv[]);
 
 //for comparing with the input command with defined commands
-char *list_of_cmd[] = {"ls", "pwd", "mkdir","chmod", "cat","rm", "mv"};
+char *list_of_cmd[] = {"ls", "pwd", "mkdir","chmod", "cat","rm", "mv", "grep"};
 char *list_of_parent[]={"exit", "cd"};
 
 //using pointer to function to run the command entered
-int (*cmd_fn_pointer[]) (char **)={&cmd_ls, &cmd_pwd, &cmd_mkdir,&cmd_chmod, &cmd_cat,&cmd_rm, &cmd_mv};
+int (*cmd_fn_pointer[]) (char **)={&cmd_ls, &cmd_pwd, &cmd_mkdir,&cmd_chmod, &cmd_cat,&cmd_rm, &cmd_mv, &cmd_grep};
 int (*parent_fn_pointer[]) (char **)={&cmd_exit, &cmd_cd};
 
 int total_cmds = sizeof(list_of_cmd)/sizeof(list_of_cmd[0]);
@@ -42,8 +43,12 @@ int read_input(char *parsed_input[]){
     char *input_str;
 
     input_str = readline("> ");
+    if (strlen(input_str)<1){
+        parsed_input[0]=NULL;
+        return 1;
+    }
     add_history(input_str);
-    printf("%s\n", input_str);
+    // printf("%s\n", input_str);
     strtok(input_str, "\n");    // this is to remove the last "\n" character from the input
 
     // tokenising the input using " " as delimiter
@@ -98,7 +103,7 @@ int run_background(int input_size, char *input_array[]){
 int run_builtin(char *input_array[]){
     int builtin=1;
     printf("trying to use inbuilt binaries\n");
-    printf("%s\n", input_array[0]);
+    // printf("%s\n", input_array[0]);
     if (execvp(input_array[0], input_array)<0){
         builtin=0;
         printf("Command not known. Please enter valid command\nExec failed\n");
@@ -109,4 +114,12 @@ int run_builtin(char *input_array[]){
 
 int cmd_exit(char *argv[]){
     exit(EXIT_SUCCESS);
+}
+
+int find_input_size(char *argv[]){
+    int length=0;
+    while (argv[length]!=NULL){
+        length++;
+    }
+    return length;
 }

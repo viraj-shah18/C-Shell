@@ -12,7 +12,7 @@
 
 // function declarations
 int read_input(char *parsed_input[]);
-int create_daemon();
+// int create_daemon();
 
 int is_parent_cmd(char *input_array[]);
 int is_child_cmd(char *input_array[]);
@@ -22,7 +22,7 @@ int cmd_exit(char *argv[]);
 
 int main(){
     while (1){
-        printf("%s", SHELL_NAME);
+        // printf("%s\n", SHELL_NAME);
         int input_size;
         char *parsed_input[MAX_LEN_CMD];
 
@@ -53,9 +53,9 @@ int main(){
         else if(rc==0){
             if (run_bg_flag==1){
                 printf("%d\n", (int)getpid());
-                create_daemon();
-                // TODO: Write daemon function, use man 7 daemon
                 input_array[input_size-1] = NULL;
+                // create_daemon();
+                // TODO: Write daemon function, use man 7 daemon
             }
             
             int child_cmd=is_child_cmd(input_array);
@@ -69,13 +69,13 @@ int main(){
             exit(EXIT_SUCCESS);
         }
         else{
-            wait(NULL);
-            // if (run_background){
-            //     run_background=0;
-            //     continue;
-            // }
-            // else{
-            // }
+            if (run_bg_flag){
+                run_bg_flag=0;
+                continue;
+            }
+            else{
+                wait(NULL);
+            }
             // printf("teminal pid: %d\n", (int) getpid());
         }
     }

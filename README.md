@@ -1,16 +1,14 @@
 pp - os_shell
 
-Errors in built-in binaries
-1. cd command not present
-
-Other known Errors
-1. Arrow keys do not work
-2. \ in the end has different action for inbuilt cmd and implemented cmd
+Errors
+1. \ in the end has different action for inbuilt cmd and implemented cmd
+2. exiting grep from stdin exits shell also
+3. Seg fault when empty input is passed
 
 ### TO-DOs
 - [x] Run built-in [2 marks]
 - [x] ls (Argument is either directory name or no argument at all) [0.5 marks] 
-- [ ] grep (requirements are same as those for wgrep given here: [Link](https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/initial-utilities)) [2 mark]
+- [x] grep (requirements are same as those for wgrep given here: [Link](https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/initial-utilities)) [2 mark]
 - [x] cat (need to improve this-read buffersize at one go) [1 mark]
 - [x] Mv [0.5 marks]
 - [ ] Cp [1 mark]
@@ -21,4 +19,4 @@ Other known Errors
 - [x] Mkdir [0.5 mark]
 - [ ] Run in background [2 marks]
 
-Total score = 7.5
+Total score = 9.5
