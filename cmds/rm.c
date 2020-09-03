@@ -1,11 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <limits.h>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <string.h>
 
+#ifndef PATH_MAX
+#define PATH_MAX 1024
+#endif
 
 int delete_files(char *file_path){
     int rc = unlink(file_path);
@@ -83,6 +85,7 @@ int cmd_rm(char *argv[]){
         }
 
         char *name = argv[idx];
+        printf("%s\n", name);
         int rc=stat(name,&file_info);
         if (rc<0){
             printf("rm: stat failed\n");
