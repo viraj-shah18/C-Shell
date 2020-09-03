@@ -23,7 +23,8 @@ int cmd_mv(char *argv[]){
         char src_name[strlen(argv[idx])];
 
         if (getcwd(src_path, PATH_MAX)==NULL){
-            printf("mv:getcwd failed");
+            printf("mv:getcwd failed\n");
+            exit(EXIT_FAILURE);
         }
         strncat(src_path, "/", 1);
         strncat(src_path, argv[idx], strlen(argv[idx]));
@@ -43,7 +44,8 @@ int cmd_mv(char *argv[]){
         }
         
         if (getcwd(dest_path, PATH_MAX)==NULL){
-            printf("mv:getcwd failed");
+            printf("mv:getcwd failed\n");
+            exit(EXIT_FAILURE);
         }
         strncat(dest_path, "/", 1);
         strncat(dest_path, argv[idx], strlen(argv[idx]));
