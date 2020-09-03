@@ -2,6 +2,12 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+#ifndef MAX_LEN_CMD
+#define MAX_LEN_CMD 128
+#endif
 
 int cmd_pwd(char *argv[]);
 int cmd_ls(char *argv[]);
@@ -24,6 +30,35 @@ int (*parent_fn_pointer[]) (char **)={&cmd_exit, &cmd_cd};
 
 int total_cmds = sizeof(list_of_cmd)/sizeof(list_of_cmd[0]);
 int total_parent_cmds = sizeof(list_of_parent)/sizeof(list_of_parent[0]);
+
+
+int read_input(char *parsed_input[]){
+    /*
+    This function reads input and splits them on spaces using strtok function
+    and returns the length of array created 
+    */
+    const char delim[]=" ";
+    char *token;
+    char *input_str;
+
+    input_str = readline("> ");
+    add_history(input_str);
+    printf("%s\n", input_str);
+    strtok(input_str, "\n");    // this is to remove the last "\n" character from the input
+
+    // tokenising the input using " " as delimiter
+    token = strtok(input_str, delim);
+    int input_size=0;
+
+    while (token!=NULL){
+        parsed_input[input_size]=token;
+        token=strtok(NULL, delim);
+        input_size++;
+    }
+
+    return input_size;
+}
+
 
 
 int is_parent_cmd(char *input_array[]){
