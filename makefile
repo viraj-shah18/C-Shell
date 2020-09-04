@@ -1,5 +1,6 @@
 # This makefile was taken from the text-book.
 
+# all the source files
 SRCS = main.c helper.c daemon.c cmds/pwd.c cmds/ls.c cmds/mkdir.c cmds/cd.c cmds/chmod.c cmds/cat.c cmds/rm.c cmds/mv.c cmds/grep.c cmds/cp.c
 TARG = shell
 CC = gcc

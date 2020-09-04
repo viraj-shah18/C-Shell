@@ -13,7 +13,7 @@
 
 // function declarations
 int read_input(char *parsed_input[]);
-int create_daemon(char *path);
+int create_daemon();
 
 int is_parent_cmd(char *input_array[]);
 int is_child_cmd(char *input_array[]);
@@ -23,7 +23,6 @@ int cmd_exit(char *argv[]);
 
 int main(){
     while (1){
-        // printf("%s > ", SHELL_NAME);
         int input_size;
         char *parsed_input[MAX_LEN_CMD];
 
@@ -33,40 +32,33 @@ int main(){
         }
 
         // this is to slice the array to required input length and adding NULL as last element
-        // printf("here");
         char *input_array[input_size+1];
         for (int idx=0;idx<input_size;idx++){
-            // printf("pi - idx - %d value - %s\n", idx, parsed_input[idx]);
             input_array[idx] = parsed_input[idx];
-            // printf("ia - idx - %d value - %s\n", idx, input_array[idx]);
         }
         input_array[input_size]=NULL;
         
         if (is_parent_cmd(input_array)){
             continue;
         }
-        // TODO: change this
-        int run_bg_flag=run_background(input_size, input_array);
 
-        // printf("REached here");
+        int run_bg_flag=run_background(input_size, input_array);
+        
         int rc=fork();
         if (rc<0){
-            printf("Function main-Fork failed\n");
-            return 0;
+            printf("main:fork failed\n");
+            exit(EXIT_FAILURE);
         }
         else if(rc==0){
+            // child process
             if (run_bg_flag==1){
-                printf("%d\n", (int)getpid());
                 input_array[input_size] = NULL;
-                char *curr_path;
-                if (getcwd(curr_path, PATH_MAX)==NULL){
-                    printf("daemon:getcwd failed\n");
-                }
-                create_daemon(curr_path);
+                create_daemon();
             }
             
             int child_cmd=is_child_cmd(input_array);
             
+            // if not present in child command trying to run builtin bin files 
             if (!child_cmd){
                 int builtin = run_builtin(input_array);
                 if (!builtin){
@@ -76,6 +68,7 @@ int main(){
             exit(EXIT_SUCCESS);
         }
         else{
+            // parent process
             if (run_bg_flag){
                 run_bg_flag=0;
                 continue;
@@ -83,7 +76,6 @@ int main(){
             else{
                 wait(NULL);
             }
-            // printf("teminal pid: %d\n", (int) getpid());
         }
     }
 }

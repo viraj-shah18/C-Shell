@@ -13,6 +13,7 @@
 #define PATH_MAX 1024
 #endif
 
+// function declarations
 int cmd_pwd(char *argv[]);
 int cmd_ls(char *argv[]);
 int cmd_mkdir(char *argv[]);
@@ -47,15 +48,19 @@ int read_input(char *parsed_input[]){
     char *token;
     char *input_str;
 
+    // used readline function to pass as it is much superirior than getline 
+    // with having history function, arrow keys are also supported 
     input_str = readline("> ");
-    // printf("%s\n", input_str);
-    if (strlen(input_str)==1){
+    
+    // passing empty input was leading to segv fault
+    if (strlen(input_str)<=1){
         parsed_input[0]=NULL;
         return -1;
     }
-    add_history(input_str);
-    // printf("%s\n", input_str);
-    strtok(input_str, "\n");    // this is to remove the last "\n" character from the input
+    else {
+        add_history(input_str);
+        strtok(input_str, "\n");    // this is to remove the last "\n" character from the input    
+    }
 
     // tokenising the input using " " as delimiter
     token = strtok(input_str, delim);
@@ -66,13 +71,17 @@ int read_input(char *parsed_input[]){
         token=strtok(NULL, delim);
         input_size++;
     }
-
     return input_size;
 }
 
 
 
 int is_parent_cmd(char *input_array[]){
+    /*
+    This function matches with the list of parent array listed at the start of file
+    if matched executes the function and returns 1  
+    */
+
     int parent_cmd=0;
     for (int a=0;a<total_parent_cmds;a++){
         if (strcmp(input_array[0], list_of_parent[a])==0){
@@ -85,6 +94,10 @@ int is_parent_cmd(char *input_array[]){
 }
 
 int is_child_cmd(char *input_array[]){
+    /*
+    This function matches with the list of child array listed at the start of file
+    if matched executes the function and returns 1  
+    */
     int child_cmd=0;
     char *command=input_array[0];
     for (int a=0;a<total_cmds;a++){
@@ -99,6 +112,10 @@ int is_child_cmd(char *input_array[]){
 }
 
 int run_background(int input_size, char *input_array[]){
+    /*
+    This function tries matching the last char of input array with &
+    if matched returns 1 else 0  
+    */
     int run_background=0;
     if (strcmp("&", input_array[input_size-1])==0){
         run_background=1;
@@ -107,9 +124,12 @@ int run_background(int input_size, char *input_array[]){
 }
 
 int run_builtin(char *input_array[]){
+    /*
+    This function by default tries to execute the built-in bin files
+    if succeded return 1 else 0
+    */
     int builtin=1;
-    printf("trying to use inbuilt binaries\n");
-    // printf("%s\n", input_array[0]);
+    // printf("trying to use inbuilt binaries\n");
     if (execvp(input_array[0], input_array)<0){
         builtin=0;
         printf("Command not known. Please enter valid command\nExec failed\n");
@@ -123,6 +143,7 @@ int cmd_exit(char *argv[]){
 }
 
 int find_input_size(char *argv[]){
+    // to find the input size (argc) using argv
     int length=0;
     while (argv[length]!=NULL){
         length++;
@@ -131,6 +152,7 @@ int find_input_size(char *argv[]){
 }
 
 void reverseStr(int str_size, char str[]){ 
+    // used to reverse a string
     for (int i=0; i<str_size/2; i++){
         char temp=str[i];
         str[i]=str[str_size-i-1];
@@ -139,6 +161,13 @@ void reverseStr(int str_size, char str[]){
 }
 
 char *get_fname(char *src_path){
+    /*
+    this function is mainly used by mv and cp where we would need file name from path
+    like t1/t12/a.txt return a.txt
+
+    the function reverses the path, tokenizes on / and 
+    */
+
     char src_path_copy[PATH_MAX];
     strncpy(src_path_copy, src_path, strlen(src_path)+1);
     reverseStr(strlen(src_path_copy), src_path_copy);

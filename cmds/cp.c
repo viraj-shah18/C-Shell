@@ -12,9 +12,11 @@
 #define PATH_MAX 1024
 #endif
 
+// helper.c
 char *get_fname(char *src_path);
 
 int cp_file(char *src_path, char *dest_path){
+    // reads the src files line by line and writes same content to new file at dest dir 
     char *line=NULL;
     size_t lenght=0;
 
@@ -41,6 +43,7 @@ int cp_file(char *src_path, char *dest_path){
 }
 
 int cp_dir(char *src_path, char *dest_path){
+    // creates src dir
     mkdir(dest_path, 0777);
 
     DIR *open_dir;
@@ -51,17 +54,15 @@ int cp_dir(char *src_path, char *dest_path){
         exit(EXIT_FAILURE);
     }
 
-    // looping to find all the files in the directory
+    // looping to find all the files in the src directory
     while ((read_dir=readdir(open_dir))!=NULL){
 
-        // by default readdir prints all the hidden files + ".." + "."
-        // all start with "."
-        // so comparing the first letter to check whether it is "."
+        // removing hidden files
         if (read_dir->d_name[0] != '.') {
             char src_path_copy[strlen(src_path)+64];
             char dest_path_copy[strlen(dest_path)+64];
+            // absolute src and dest path
             strncpy(src_path_copy, src_path, strlen(src_path));
-            printf("here\n");
             strncat(src_path_copy, "/", 1);
             strncat(src_path_copy, read_dir->d_name, strlen(read_dir->d_name));
             strncpy(dest_path_copy, dest_path, strlen(dest_path)+1);
@@ -76,7 +77,6 @@ int cp_dir(char *src_path, char *dest_path){
                 exit(EXIT_FAILURE);
             }
             if (!S_ISDIR(check_dir.st_mode)){
-                // printf("here\n");
                 cp_file(src_path_copy, dest_path_copy);
             }
             memset(src_path_copy, 0, strlen(src_path_copy));
@@ -84,11 +84,22 @@ int cp_dir(char *src_path, char *dest_path){
         }
     }
     return 0;
-
 }
 
 
 int cmd_cp(char *argv[]){
+    /*
+    This is my implementation of cp command
+    it gets absolute path of the src and dest directories 
+    checks if -r flag is passed and passes to the appropriate function above
+
+    Usage example
+    >> cp test.py t1
+    >> cp test.py t1 test2.py t2
+    >> cp t1/11 ..
+    >> cp -r t1 t2
+    */
+
     int idx=1;
     while(argv[idx]!=NULL){
         char *src_name;
@@ -105,7 +116,7 @@ int cmd_cp(char *argv[]){
             printf("cp:missing arguments\n");
             exit(EXIT_FAILURE);
         }
-
+        // absolute path of src folder
         if (getcwd(src_path, PATH_MAX)==NULL){
             printf("cp:getcwd failed\n");
             exit(EXIT_FAILURE);
@@ -113,6 +124,7 @@ int cmd_cp(char *argv[]){
         strncat(src_path, "/", 1);
         strncat(src_path, argv[idx], strlen(argv[idx]));
         printf("src - %s\n", src_path);
+        // file name to be appended to dest path
         src_name=get_fname(src_path);
         
         idx++;
@@ -150,17 +162,11 @@ int cmd_cp(char *argv[]){
             printf("cp:invalid arguments\n");
             exit(EXIT_FAILURE);
         }
-
-        
-        
-        
         idx++;
-
-
     }    
     if (idx==1){
         printf("cp:missing arguments\n");
         exit(EXIT_FAILURE);
-    }   
+    }
     return 0;
 }
