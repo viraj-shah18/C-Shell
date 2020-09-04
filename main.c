@@ -8,11 +8,12 @@
 
 #define SHELL_NAME "fish"
 #define MAX_LEN_CMD 128
+#define PATH_MAX 1024
 
 
 // function declarations
 int read_input(char *parsed_input[]);
-// int create_daemon();
+int create_daemon(char *path);
 
 int is_parent_cmd(char *input_array[]);
 int is_child_cmd(char *input_array[]);
@@ -22,11 +23,14 @@ int cmd_exit(char *argv[]);
 
 int main(){
     while (1){
-        // printf("%s\n", SHELL_NAME);
+        // printf("%s > ", SHELL_NAME);
         int input_size;
         char *parsed_input[MAX_LEN_CMD];
 
         input_size = read_input(parsed_input);
+        if (input_size<0){
+            continue;
+        }
 
         // this is to slice the array to required input length and adding NULL as last element
         // printf("here");
@@ -53,8 +57,12 @@ int main(){
         else if(rc==0){
             if (run_bg_flag==1){
                 printf("%d\n", (int)getpid());
-                input_array[input_size-1] = NULL;
-                // create_daemon();
+                input_array[input_size] = NULL;
+                char *curr_path;
+                if (getcwd(curr_path, PATH_MAX)<0){
+                    printf("daemon:getcwd failed\n");
+                }
+                create_daemon(curr_path);
                 // TODO: Write daemon function, use man 7 daemon
             }
             

@@ -48,9 +48,10 @@ int read_input(char *parsed_input[]){
     char *input_str;
 
     input_str = readline("> ");
-    if (strlen(input_str)<1){
+    printf("%s\n", input_str);
+    if (strlen(input_str)==1){
         parsed_input[0]=NULL;
-        return 1;
+        return -1;
     }
     add_history(input_str);
     // printf("%s\n", input_str);

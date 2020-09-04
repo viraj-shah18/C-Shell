@@ -17,6 +17,6 @@ Errors
 - [x] rm (along with -r option) [1 mark]
 - [x] Chmod [0.5 mark]
 - [x] Mkdir [0.5 mark]
-- [ ] Run in background [2 marks]
+- [x] Run in background [2 marks]
 
-Total score = 10.5
+Total score = 12.5
