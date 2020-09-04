@@ -9,6 +9,10 @@
 #define MAX_LEN_CMD 128
 #endif
 
+#ifndef PATH_MAX
+#define PATH_MAX 1024
+#endif
+
 int cmd_pwd(char *argv[]);
 int cmd_ls(char *argv[]);
 int cmd_mkdir(char *argv[]);
@@ -123,4 +127,21 @@ int find_input_size(char *argv[]){
         length++;
     }
     return length;
+}
+
+void reverseStr(int str_size, char str[]){ 
+    for (int i=0; i<str_size/2; i++){
+        char temp=str[i];
+        str[i]=str[str_size-i-1];
+        str[str_size-i-1]=temp;
+    }
+}
+
+char *get_fname(char *src_path){
+    char src_path_copy[PATH_MAX];
+    strncpy(src_path_copy, src_path, strlen(src_path)+1);
+    reverseStr(strlen(src_path_copy), src_path_copy);
+    char *file_name = strtok(src_path_copy, "/");
+    reverseStr(strlen(file_name), file_name);
+    return file_name;
 }

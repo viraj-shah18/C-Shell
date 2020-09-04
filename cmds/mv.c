@@ -4,15 +4,7 @@
 #include <string.h>
 #include <limits.h>
 
-void reverseStr(int str_size, char str[]) 
-{ 
-    for (int i=0; i<str_size/2; i++){
-        char temp=str[i];
-        str[i]=str[str_size-i-1];
-        str[str_size-i-1]=temp;
-    }
-}
-
+char *get_fname(char *src_path);
 
 int cmd_mv(char *argv[]){
     int idx=1;
@@ -32,10 +24,7 @@ int cmd_mv(char *argv[]){
         char src_path_copy[PATH_MAX];
         strncpy(src_path_copy, src_path, strlen(src_path)+1);
 
-
-        reverseStr(strlen(src_path_copy), src_path_copy);
-        char *file_name = strtok(src_path_copy, "/");
-        reverseStr(strlen(file_name), file_name);
+        char *file_name = get_fname(src_path);
         printf("fname - %s\n", file_name);
 
         idx++;

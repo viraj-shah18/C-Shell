@@ -11,7 +11,7 @@ Errors
 - [x] grep (requirements are same as those for wgrep given here: [Link](https://github.com/remzi-arpacidusseau/ostep-projects/tree/master/initial-utilities)) [2 mark]
 - [x] cat (need to improve this-read buffersize at one go) [1 mark]
 - [x] Mv [0.5 marks]
-- [ ] Cp [1 mark]
+- [x] Cp [1 mark]
 - [x] Cd [1 mark]
 - [x] Pwd [0.5 marks]
 - [x] rm (along with -r option) [1 mark]
@@ -19,4 +19,4 @@ Errors
 - [x] Mkdir [0.5 mark]
 - [ ] Run in background [2 marks]
 
-Total score = 9.5
+Total score = 10.5
