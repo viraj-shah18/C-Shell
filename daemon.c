@@ -10,14 +10,7 @@ int create_daemon(char *curr_path){
     for(fd=sysconf(_SC_OPEN_MAX); fd>2; fd--){
         close(fd);
     }
-    printf("started with daemon\n");
-    int rc = fork();    
-    if (rc < 0){
-        printf("deamon:first fork failed\n");
-        exit(EXIT_FAILURE);
-    }
-    if (rc > 0)
-        exit(EXIT_SUCCESS);
+    // printf("started with daemon\n");
 
     if (setsid()==-1){
         printf("daemon:error occured in setsid\n");
@@ -34,9 +27,8 @@ int create_daemon(char *curr_path){
     }
 
     umask(0);
-    chdir(curr_path);
-    // stdin=fopen("/dev/null","r");
-    // stdout=fopen("dev/null","w+");
-    printf("Parent id = %d\n\n", (int)getppid());
+    if(chdir(curr_path)<0){
+        printf("daemon:failed to change directories\n");
+    }
     return 0;
 }

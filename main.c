@@ -59,11 +59,10 @@ int main(){
                 printf("%d\n", (int)getpid());
                 input_array[input_size] = NULL;
                 char *curr_path;
-                if (getcwd(curr_path, PATH_MAX)<0){
+                if (getcwd(curr_path, PATH_MAX)==NULL){
                     printf("daemon:getcwd failed\n");
                 }
                 create_daemon(curr_path);
-                // TODO: Write daemon function, use man 7 daemon
             }
             
             int child_cmd=is_child_cmd(input_array);

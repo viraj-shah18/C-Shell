@@ -1,9 +1,9 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <errno.h>
-#include <limits.h>
+
+#define PATH_MAX 1024
 
 int cmd_cat(char *argv[]){
     char path[PATH_MAX];
@@ -21,6 +21,8 @@ int cmd_cat(char *argv[]){
     int idx=1;
     while (argv[idx]!=NULL){
         FILE *curr_file;
+        char *line=NULL;
+        size_t lenght=0;
         curr_file=fopen(argv[idx], "r");
         if (curr_file==NULL){
             printf("%d", errno);
@@ -28,11 +30,8 @@ int cmd_cat(char *argv[]){
             exit(EXIT_FAILURE);
         }
 
-        // basic reading char by char
-        // TODO: read specific buffer size in 1 go
-        char curr_char;
-        while ((curr_char=fgetc(curr_file))!=EOF){
-            printf("%c", curr_char);
+        while ((getline(&line, &lenght, curr_file))!=-1){
+            printf("%s", line);
         }
         fclose(curr_file);
         idx++;

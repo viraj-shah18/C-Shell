@@ -41,7 +41,6 @@ int cp_file(char *src_path, char *dest_path){
 }
 
 int cp_dir(char *src_path, char *dest_path){
-    char *dir_name=get_fname(src_path);
     mkdir(dest_path, 0777);
 
     DIR *open_dir;

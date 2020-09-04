@@ -48,7 +48,7 @@ int read_input(char *parsed_input[]){
     char *input_str;
 
     input_str = readline("> ");
-    printf("%s\n", input_str);
+    // printf("%s\n", input_str);
     if (strlen(input_str)==1){
         parsed_input[0]=NULL;
         return -1;
