@@ -5,29 +5,28 @@
 #include <sys/types.h>
 
 int cmd_mkdir(char *argv[]){
-    printf("Hello this new mkdir command\n");
-    char *create_dir_names[32];
-    
-    // for taking multiple dir names to create multiple directories
-    int i=1;
+    /*
+    This is my implementation of mkdir command
+    It validates the arguments and aggregates all argv
+    Starts with one directory, check if file mode is valid 
+    and prints all files in that dir 
+
+    Usage example
+    >> mkdir test1 test2 test3
+    */
+
+    // printf("Hello this new mkdir command\n");
     if (argv[1]==NULL){
-        printf("Argument missing\n");
+        printf("mkdir:file name missing\n");
         exit(EXIT_FAILURE);
     }
-    else{
-        while (argv[i]!=NULL){
-            create_dir_names[i-1]=argv[i];
-            i++;
-        }
-        create_dir_names[i-1]=NULL;
-    }
 
-    int idx=0;
-    while (create_dir_names[idx]!=NULL){
+    int idx=1;
+    while (argv[idx]!=NULL){
         // used the default mode of 0777 to create new dir
-        int rc=mkdir(create_dir_names[idx], 0777);
+        int rc=mkdir(argv[idx], 0777);
         if (rc<0){
-            printf("Creating new directory failed\n");
+            printf("mkdir:creating new directory failed\n");
         }
         idx++;
     }

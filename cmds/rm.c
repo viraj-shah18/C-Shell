@@ -10,6 +10,9 @@
 #endif
 
 int delete_files(char *file_path){
+    /*
+    This function takes absolute path as argument and deletes that file
+    */
     int rc = unlink(file_path);
     if (rc<0){
         printf("rm: file deletion failed\n");
@@ -19,13 +22,22 @@ int delete_files(char *file_path){
 
 
 int delete_dir(char *dir_path){
+    /*
+    to delete a directory, first need to remove all its contents
+    this funntion loops over all contents of the directory
+    if that is directory, recusively calls this function
+    else calls delete_file function
+    */
+
     DIR *open_dir;
     struct dirent *read_dir;
+    // opens the directory
     if ((open_dir=opendir(dir_path))==NULL){
-        printf("Error opening directory\n");
+        printf("rm:error opening directory\n");
         exit(EXIT_FAILURE);
     }
 
+    // looping over all the contents of that directory 
     while ((read_dir=readdir(open_dir))!=NULL){
         struct stat file_info;
         char *dir_name=read_dir->d_name;
@@ -40,6 +52,8 @@ int delete_dir(char *dir_path){
             exit(EXIT_FAILURE);
         }
 
+        // checking if file is current dir (.) or parent directory (..)
+        // and skipping those
         if (strcmp(dir_name,".")==0 || strcmp(dir_name,"..")==0) {
             continue;
         }
@@ -51,6 +65,7 @@ int delete_dir(char *dir_path){
             delete_files(in_path);
         }
     }
+    // in the end, now dir is empty and can be removed using rmdir
     if (rmdir(dir_path)<0){
         printf("rm:unable to delete the directory\n");
         exit(EXIT_FAILURE);
@@ -60,20 +75,31 @@ int delete_dir(char *dir_path){
 
 int cmd_rm(char *argv[]){
     /*
-    One of the important point here is I am using only absolute paths
+    This is my implementation of rm command
+    it gets absolute path of the directories to be deleted
+    and calls the delete_dir and delete_file functions
+
+    Usage example
+    >> rm test.py
+    >> rm test.py test2.py
+    >> rm -r t1
+    >> rm -r t1 -r t2
+    >> rm -r t1 test.py
     */
     
     struct stat file_info;
     char path[PATH_MAX];
-
+    // gets the absolute path of working dir
     if (getcwd(path, PATH_MAX)==NULL){
         printf("path error\n");
         exit(EXIT_FAILURE);
     }
 
+    // looping over all the arguments
     int idx=1;
     while(argv[idx]!=NULL){
         int is_dir=0;
+        // checking for recursive flag
         if (strcmp(argv[idx], "-r")==0){
             idx++;
             is_dir=1;
@@ -84,14 +110,15 @@ int cmd_rm(char *argv[]){
             exit(EXIT_FAILURE);
         }
 
+        // using stat to find the file type
         char *name = argv[idx];
-        printf("%s\n", name);
+        // printf("%s\n", name);
         int rc=stat(name,&file_info);
         if (rc<0){
             printf("rm: stat failed\n");
             exit(EXIT_FAILURE);
         }
-
+        // checking if it is directory and -r flag is passed
         if (S_ISDIR(file_info.st_mode) && is_dir){
             char test_path[PATH_MAX];
             strncpy(test_path, path, strlen(path)+1);
@@ -99,8 +126,8 @@ int cmd_rm(char *argv[]){
             strncat(test_path, name, strlen(name));
             delete_dir(test_path);
         }
-
-        else if (!is_dir){
+        // checking if it is not a directory and -r flag is not passed
+        else if (!S_ISDIR(file_info.st_mode) && !is_dir){
             delete_files(argv[idx]);
         }
         else{

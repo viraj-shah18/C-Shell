@@ -6,7 +6,17 @@
 #include <dirent.h>
 
 int cmd_ls(char *argv[]){
-    printf("Hello this new ls command\n");
+    /*
+    This is my implementation of ls command
+    It validates the arguments and aggregates all argv
+    Starts with one directory, check if file mode is valid 
+    and prints all files in that dir 
+
+    Usage example
+    >> ls cmds t1
+    */
+   
+    // printf("Hello this new ls command\n");
     char *ls_dir[32];
     struct stat file_info;
     DIR *open_dir;

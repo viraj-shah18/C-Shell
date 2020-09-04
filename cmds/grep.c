@@ -8,16 +8,27 @@
 int find_input_size(char *argv[]);
 
 int check_file(char *fname, char *to_match, int flag){
+    /*
+    takes filename, pattern and flag storing if there are multiple files
+    
+    function tries opening the file 
+    and checks line by line if pattern is a substring of that line
+
+    */
     char *line=NULL;
     size_t lenght=0;
-
+    
+    // opening the file
     FILE *file;
     file = fopen(fname, "r");
     if (file == NULL) {
         printf("grep: cannot open file\n");
         exit(EXIT_FAILURE);
     }
+
+    // read line by line
     while ((getline(&line, &lenght, file))!=-1){
+        // checking whether that pattern is a substring of that line 
         if (strstr(line, to_match)){
             if (flag){
                 printf("%s: ", fname);
@@ -29,7 +40,18 @@ int check_file(char *fname, char *to_match, int flag){
 }
 
 int cmd_grep(char *argv[]){
-    int argc = find_input_size(argv);
+    /*
+    This is my implementation of grep command
+    It validates the arguments and aggregates all argv
+    and then passes file to check_file function 
+
+    Usage example
+    >> grep time test.py test2.py
+    >> grep time 
+    
+    */
+
+    int argc = find_input_size(argv); // in the helper.c file
     int multiple_flag=0;
     if (argc>2){
         multiple_flag=1;

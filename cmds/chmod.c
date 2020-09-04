@@ -5,6 +5,15 @@
 #include <sys/stat.h>
 
 int cmd_chmod(char *argv[]){
+    /*
+    This is my implementation of chmod command
+    It validates the arguments and then convert string to octal number
+
+    Usage example
+    >>> chmod t1/11 0777
+    >>> chmod t1/12 0444 test.py 0777
+    */
+
     // checks for all arguments
     if (argv[1]==NULL){
         printf("Please enter all the arguments\n");
@@ -22,7 +31,8 @@ int cmd_chmod(char *argv[]){
     while(argv[idx]!=NULL){
         int rc=chmod(argv[idx], mode);
         if (rc<0){
-            printf("chmod failed. Please enter arguments carefully\n");
+            printf("chmod:failed arguments error\n");
+            exit(EXIT_FAILURE);
         }
         idx++;
     }

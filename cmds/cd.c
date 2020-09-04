@@ -3,6 +3,17 @@
 #include <stdio.h>
 
 int cmd_cd(char *argv[]){
+    /*
+    This is my implementation of cd command
+    It validates the arguments and then uses relative path
+    using chdir system call to change directories
+    
+    Usage example
+    >>> cd t1
+    >>> cd ..
+    etc. 
+    */
+
     // checking for first argument
     if (argv[1]==NULL){
         printf("Path not specified\n");
@@ -11,7 +22,7 @@ int cmd_cd(char *argv[]){
         int rc=chdir(argv[1]);
         if (rc<0){
             // if the path is not correct
-            printf("Changing Directories failed - Directory not found\n");
+            printf("cd:changing directories failed-directory not found\n");
         }
     }
     return 0;

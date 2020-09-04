@@ -3,9 +3,21 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#ifndef PATH_MAX
 #define PATH_MAX 1024
+#endif
 
 int cmd_cat(char *argv[]){
+    /*
+    This is my implementation of cat command
+    It validates the arguments and then uses relative path to open the file
+    reads the file line by line and prints on the stdout. does work on multiple files
+
+    Usage example
+    >> cat test.py test2.py
+    prints content of test.py
+    prints content of test2.py
+    */
     char path[PATH_MAX];
 
     if (argv[1]==NULL){
@@ -30,6 +42,7 @@ int cmd_cat(char *argv[]){
             exit(EXIT_FAILURE);
         }
 
+        // reading line by line
         while ((getline(&line, &lenght, curr_file))!=-1){
             printf("%s", line);
         }
